@@ -23,7 +23,7 @@ public class AuthController {
 	private SecurityService securityService;
 
 	@ResponseBody
-	@PostMapping("/security/generate/token") 
+	@PostMapping("/token") 
 	public String generateToken(@RequestBody SecuritySubjectDTO securitySubjectDTO) { 
 	    String userId = securitySubjectDTO.getUserId();
 	    String userPassword = securitySubjectDTO.getUserPassword();
@@ -34,7 +34,7 @@ public class AuthController {
 		return token;
 	}
 	
-	@GetMapping("/security/get/subject") 
+	@GetMapping("/subject") 
 	public String getSubject(@RequestHeader String AccessToken) { 
 		String subject = securityService.getSubject(AccessToken); 
 		return subject; 
