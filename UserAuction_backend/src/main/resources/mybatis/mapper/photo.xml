@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="photo">
+	<select id="select_photo" parameterType="photoVo" resultType="photoVo">
+	    <![CDATA[
+	        SELECT * FROM t_photo 
+	    ]]>
+	    <if test="category_no != null and category_no != 'all'">
+		    <![CDATA[
+		    WHERE category_no = #{category_no}
+		    ]]> 
+	    </if>  
+	    <![CDATA[
+	        ORDER BY no DESC
+	        LIMIT #{pageSize} OFFSET #{startCol}
+	    ]]>
+	</select>
+	
+	<insert id="insert_photo" parameterType="com.cafe24.thon.vo.PhotoVo">
+	     insert into 
+	     t_photo(no, writer, photo, message, ins_timestamp, category_no) 
+	     values(null,#{writer},#{photo},#{message},default, #{category_no})
+	</insert>
+	
+	<select id="select_pw" resultType="string">
+	    <![CDATA[
+	        SELECT cast(AES_DECRYPT(pw, 'skok1025') as char(200)) as pw FROM t_password LIMIT 1
+	    ]]>
+	</select>
+	
+	<select id="select_category" resultType="categoryVo">
+	    <![CDATA[
+	        SELECT * FROM t_category ORDER BY no 
+	    ]]>
+	</select>
+	
+	<select id="select_count" parameterType="photoVo" resultType="integer">
+	    <![CDATA[
+	        SELECT count(*) FROM t_photo 
+	    ]]>
+	    <if test="category_no != null and category_no != 'all'">
+		    <![CDATA[
+		    WHERE category_no = #{category_no}
+		    ]]> 
+	    </if>
+	</select>
+</mapper>

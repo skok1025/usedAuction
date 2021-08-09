@@ -7,5 +7,6 @@
   <modules>
   	<module>UsedAuction_frontend</module>
   	<module>UsedAuction_backend</module>
+  	<module>UserAuction_backend</module>
   </modules>
 </project>
